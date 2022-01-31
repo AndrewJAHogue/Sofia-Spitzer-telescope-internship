@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Random FITS files
+./fits
+
+# personal instructions
+.instuctions.png
+
+# fits file path, relative to each machine
+.fits.json
