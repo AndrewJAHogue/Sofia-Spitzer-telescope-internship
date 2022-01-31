@@ -132,7 +132,7 @@ dmypy.json
 ./fits
 
 # personal instructions
-.instuctions.png
+instuctions.png
 
 # fits file path, relative to each machine
-.fits.json
+fits.json
