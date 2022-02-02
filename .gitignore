@@ -136,3 +136,5 @@ instuctions.png
 
 # fits file path, relative to each machine
 fits.json
+
+.vscode/

@@ -66,11 +66,12 @@ import stars as st
 
 # noise floor 0.0235 jy/arcsec^2
 #
-
-def ConvolveShift(path, x, y, collims, rowlims, sigmashift, shift):
-    sofia = "./fits/Forcast25_isoField1.fits"
-    spit = "./fits/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
-
+import filetree as ft
+fitsfolder = ft.FitsFolder() 
+def ConvolveShift(path, x, y, sigmashift, shift, collims=[None, None, None, None], rowlims=[None, None, None, None]):
+    sofia = fitsfolder + "/Forcast25_isoField1.fits"
+    spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
+    print(f'x: {x} \ny: {y}')
     hdu = fits.open(sofia)[0]
 
 
@@ -110,8 +111,8 @@ def ConvolveShift(path, x, y, collims, rowlims, sigmashift, shift):
     astropy_conv = convolve_fft(img, kernel)
     print(f'shift => {shift}')
 
-
-    newpath = f"{path}/{floor(sigma * 1000)}.fits"
+    
+    newpath = f"{path}/convolved/{floor(sigma * 1000)}.fits"
     test = f"{path}/shifted/{shift * 1000}_{floor(sigma * 1000)}.fits"
 
 

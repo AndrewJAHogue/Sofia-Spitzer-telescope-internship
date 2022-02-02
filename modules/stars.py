@@ -1,6 +1,9 @@
 
+
+import filetree as ft
+path = ft.FitsFolder()
 class isoOne:
-    file = "../fits/Masked_zeros_Spitzer24_IsoFields + Forcast25_1.fits"
+    file = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_1.fits"
     # [starx, stary, xmax, ymax]
     # A = [270, 385, 290, 430]
     class A:
@@ -21,15 +24,24 @@ class isoOne:
     stars = [A, B, C]
 
 class isoTwo:
-    file = "../fits/Masked_zeros_Spitzer24_IsoFields + Forcast25_2.fits"
-    A = [330, 412]
-    B = [295, 312]
-    C = [277, 233]
-    D = [301, 200]
+    file = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_2.fits"
+    class A:
+        x1 = 330
+        y1 = 412
+
+    class B:
+        x1 = 295
+        y1 = 412
+    class C:
+        x1 = 277
+        y1 = 233
+    class D:
+        x1 = 301
+        y1 = 200
     stars = [A, B, C, D]
 
 class sgrb:
-    file = "../fits/datamasked Spitzer24_SgrB @ Forcast25_SgrB.fits"
+    file = path + "/datamasked Spitzer24_SgrB @ Forcast25_SgrB.fits"
     A = [270, 385]
     B = [335, 369]
     C = [414, 403]

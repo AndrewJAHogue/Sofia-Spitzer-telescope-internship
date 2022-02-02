@@ -115,6 +115,8 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
         print(file)
         if isinstance(file, str):
             data = fits.open(file)[0].data
+        file = file[file.find('fits/') + 5:] #test[test.find('fits/') + 5:]
+
         column = GetNthColumn(data, xvalue)
         ax1 = plt.subplot(1,2,1)
         plt.title(f'Column-Pixel Saturation at X={xvalue}')
@@ -147,7 +149,7 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
             plt.ylim(bottom=rowymin)
         if rowymax != None:
             plt.ylim(top=rowymax)
-        plt.plot(row[0],row[1], label=file)
+        plt.plot(row[0],row[1], label=file) 
         if legend:
             plt.legend()
     plt.show()
