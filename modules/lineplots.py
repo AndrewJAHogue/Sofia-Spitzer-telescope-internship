@@ -83,9 +83,8 @@ def SingleLinePlot(filepath, xvalue, yvalue, columnmin=0.0, rowmin=0.0):
     plt.suptitle(filepath)
 
     plt.show()
+
 def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None], rowlimits=[None,None,None,None], **kwargs):
-    ## columnlimits = [xmin, xmax, ymin, ymax]
-    ## rowlimits = [xmin, xmax, ymin, ymax]
     # colxmin = kwargs.get('colxmin', None) ## limit domain of column plot
     colxmin = columnlimits[0]
     # colxmax = kwargs.get('colxmax', None)
@@ -110,19 +109,28 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
     for arg in kwargs:
         if 'file' in str(arg):
             files = np.append(files, kwargs.get(arg, None))
+    # grid = len(files)
+    # grid /= 4
+    grid = 1
+    print(f'grid is => {grid}')
 
-    for file in files:
-        print(file)
+    from math import ceil, floor
+
+    for plot_index,file in enumerate(files):
+        plot_index += 1
+        if plot_index > 2:
+            plot_index = 2
+        print(f'plot_index is => {plot_index}')
         if isinstance(file, str):
             data = fits.open(file)[0].data
         file = file[file.find('fits/') + 5:] #test[test.find('fits/') + 5:]
+        print(file)
 
         column = GetNthColumn(data, xvalue)
-        ax1 = plt.subplot(1,2,1)
+        ax1 = plt.subplot(grid,2,1)
         plt.title(f'Column-Pixel Saturation at X={xvalue}')
         plt.xlabel('Y Index')
         plt.ylabel('Pixel Value')
-        # ax1.axis([0,500, 0, 0.05])
         ax1.margins(0)
         if colxmin != None:
             plt.xlim(left=colxmin)
@@ -138,7 +146,7 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
             plt.legend()
 
         row = GetNthRow(data, yvalue)
-        plt.subplot(1,2,2)
+        plt.subplot(grid,2,2)
         plt.title(f'Row-Pixel Saturation at Y={yvalue}')
         plt.xlabel('X Index')
         if rowxmin != None:

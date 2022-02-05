@@ -3,21 +3,36 @@
 # import numpy as np
 # import matplotlib.pyplot as plt
 from astropy.io import fits
-# from astropy.wcs import WCS
-# from astropy.coordinates import Galactic
 
+import sys
+sys.path.append('./modules/')
 
-Forcast25_isoField1 = fits.open("fits/Forcast25_isoField1.fits")[0]
-Forcast25_isoField2 = fits.open("fits/Forcast25_isoField2.fits")[0]
-Spitzer24_IsoFields = fits.open("fits/Spitzer24_IsoFields.fits")[0]
-re_Spitzer24_IsoFields1 = fits.open("fits/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits")[0]
-re_Spitzer24_IsoFields2 = fits.open("fits/Reprojected Spitzer24 IsoFields @ Forcast25 isoField2.fits")[0]
+import stars as st
 
-# forcast_rgb = fits.open("Forcast25_SgrB.fits")
-# spitzer_rgb = fits.open("Spitzer24_SgrB.fits")
+# file1 = st.isoOne
+# x1 = file1.A.x1
+# y1 = file1.A.y1
+# print(f'x1: {x1} \ny1: {y1}')
+# sofia = "../fits/Forcast25_isoField1.fits"
+# spit = "../fits/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
+# x2 = file1.A.x2
+# y2 = file1.A.y2
+import filetree as ft
+file1 = st.isoOne
+# x2 = file1.A.x2
+# y2 = file1.A.y2
+parent = ft.FitsFolder()
 
-# print((forcast_rgb[0].shape))
-# print((spitzer_rgb[0].shape))
+from convolutions import ConvolveShift
 
-# print(len(Forcast25_isoField1.data))
-print(1 / .768)
+# Star A
+path = parent + 'ForcastOne/A/'
+x1 = file1.A.x1
+y1 = file1.A.y1
+oneAcollims = [390, 410, 0, 0.05] ## columnlimits = [xmin, xmax, ymin, ymax]
+oneArowlims = [240, 310, None, 0.05] ## rowlimits = [xmin, xmax, ymin, ymax]
+ConvolveShift(path, x1, y1, 0.01, 0.01, oneAcollims, oneArowlims)
+ConvolveShift(path, x1, y1, 0.001, 0.005, oneAcollims, oneArowlims)
+import matplotlib.pyplot as plt
+
+plt.show()
