@@ -31,7 +31,7 @@ class isoTwo:
 
     class B:
         x1 = 295
-        y1 = 412
+        y1 = 312
     class C:
         x1 = 277
         y1 = 233

@@ -11,6 +11,8 @@ import filetree as ft
 fitsfolder = ft.FitsFolder() 
 def ConvolveShift(path, x, y, sigmashift, shift, collims=[None, None, None, None], rowlims=[None, None, None, None], **keywargs):
     increment = keywargs.get('increment', 0.0)
+    x2 = keywargs.get('x2', None)
+    y2 = keywargs.get('y2', None)
     
     sofia = fitsfolder + "/Forcast25_isoField1.fits"
     spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
