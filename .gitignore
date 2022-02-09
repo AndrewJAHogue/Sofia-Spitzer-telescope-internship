@@ -138,3 +138,5 @@ instuctions.png
 fits.json
 
 .vscode/
+
+*.code-workspace

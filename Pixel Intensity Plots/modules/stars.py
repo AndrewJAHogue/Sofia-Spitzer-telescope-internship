@@ -3,7 +3,9 @@
 import filetree as ft
 path = ft.FitsFolder()
 class isoOne:
-    file = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_1.fits"
+    masked = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_1.fits"
+    sofia = path + "/Forcast25_isoField1.fits"
+    spitzer = path + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
     # [starx, stary, xmax, ymax]
     # A = [270, 385, 290, 430]
     class A:
@@ -24,20 +26,30 @@ class isoOne:
     stars = [A, B, C]
 
 class isoTwo:
-    file = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_2.fits"
+    sofia = path + "/Forcast25_isoField2.fits"
+    spitzer = path + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField2.fits"
+    # file = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_2.fits"
     class A:
         x1 = 330
+        x2 = 390
         y1 = 412
+        y2 = 450
 
     class B:
         x1 = 295
+        x2 = 326
         y1 = 312
+        y2 = 340
     class C:
         x1 = 277
+        x2 = 305
         y1 = 233
+        y2 = 255
     class D:
         x1 = 301
+        x2 = 336
         y1 = 200
+        y2 = 224
     stars = [A, B, C, D]
 
 class sgrb:
