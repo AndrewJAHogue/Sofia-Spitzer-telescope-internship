@@ -9,19 +9,19 @@ from astropy.convolution import Gaussian2DKernel, convolve, interpolate_replace_
 import stars as st
 import filetree as ft
 fitsfolder = ft.FitsFolder() 
-def ConvolveShift(path, x, y, sigmashift, shift, collims=[None, None, None, None], rowlims=[None, None, None, None], **keywargs):
+def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, None, None, None], rowlims=[None, None, None, None], **keywargs):
     increment = keywargs.get('increment', 0.0)
     x2 = keywargs.get('x2', None)
     y2 = keywargs.get('y2', None)
     
-    sofia = fitsfolder + "/Forcast25_isoField1.fits"
-    spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
+    # sofia = fitsfolder + "/Forcast25_isoField1.fits"
+    # spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
     print(f'x: {x} \ny: {y}')
     hdu = fits.open(sofia)[0]
 
 
     # scale the file and crop
-    # img = hdu.data[x1:x2, y1:y2]
+    # img = hdu.data[x:2, y:y2]
     img = hdu.data
     img[img > 1] = np.nan
     img[img < 0] = np.nan
@@ -42,6 +42,8 @@ def ConvolveShift(path, x, y, sigmashift, shift, collims=[None, None, None, None
     sigma += sigmashift
     print(f'sigma => {sigma}')
     sigmas = [sigma]
+    ft.FolderCheck(path[path.find('fits/') + 5:] + 'convolved', True)
+    ft.FolderCheck(path[path.find('fits/') + 5:] + 'shifted', True)
 
     # shift = 0.008 ## shift data up slightly
 
