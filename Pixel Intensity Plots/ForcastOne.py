@@ -1,13 +1,19 @@
 from math import floor
 
 import sys
-sys.path.append('./modules/')
+sys.path.append('./Pixel Intensity Plots/modules/')
 
 import stars as st
 
 import filetree as ft
 file1 = st.isoOne
 parent = ft.FitsFolder()
+sofia = file1.sofia
+spit = file1.spitzer
+
+
+    # sofia = fitsfolder + "/Forcast25_isoField1.fits"
+    # spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
 
 from convolutions import ConvolveShift
 
@@ -33,4 +39,4 @@ x1 = file1.C.x1
 y1 = file1.C.y1
 oneCcollims = [400, 440, 0, 0.045]
 oneCrowlims = [400, 440, 0, 0.035]
-ConvolveShift(path, x1, y1, -.9, 0.0075, oneCcollims, oneCrowlims)
+ConvolveShift(sofia, spit, path, x1, y1, -.9, 0.0075, oneCcollims, oneCrowlims)

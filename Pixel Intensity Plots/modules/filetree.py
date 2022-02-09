@@ -24,13 +24,17 @@ def Main():
                     makedirs(sub)
                     print(f'Made new folder structure: {sub}')
                     
-def FolderCheck(subfolder, create=False):
+def FolderCheck(subfolder, create=False, verbose=False):
     top = path
     if isdir(top + subfolder) is False:
+        if verbose:
+            print(f'Doesnt EXIST:: {top + subfolder}')
         if create:
             makedirs(top + subfolder)
-        print(f'Doesnt EXIST; Make subfolder => {top + subfolder}')
-    print(f'path {top + subfolder} => already exists')
+            print(f'Made subfolder => {top + subfolder}')
+    else:
+        if verbose:
+            print(f'path {top + subfolder} => already exists')
 
 def FitsFolder():
     return path

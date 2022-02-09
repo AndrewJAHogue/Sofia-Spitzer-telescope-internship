@@ -102,8 +102,8 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
     # rowymax = kwargs.get('rowymax', None)
     rowymax = rowlimits[3]
 
-    x2 = keywargs.get('x2', None)
-    y2 = keywargs.get('y2', None)
+    x2 = kwargs.get('x2', None)
+    y2 = kwargs.get('y2', None)
 
     legend = kwargs.get('legend', False) ## show legend or not
     
