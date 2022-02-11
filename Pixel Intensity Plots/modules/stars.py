@@ -52,10 +52,61 @@ class isoTwo:
         y2 = 224
     stars = [A, B, C, D]
 
+# starting with sgrb, since some of the stars are more spread out/less conventionally shaped, (x1,y1) will no longer be an approximate center of the star
+# instead, x1 will be the beginning of the domain of the star, extending to x2
+# same for y1, the starting point for the range, going all the way to y2
 class sgrb:
-    file = path + "/datamasked Spitzer24_SgrB @ Forcast25_SgrB.fits"
-    A = [270, 385]
-    B = [335, 369]
-    C = [414, 403]
-    D = [700, 300]
+    sofia = path + "/Forcast25_SgrB.fits"
+    spitzer = path + "/Reprojected Spitzer24_SgrB @ Forcast25_SgrB.fits"
+    # file = path + "/datamasked Spitzer24_SgrB @ Forcast25_SgrB.fits"
+    class A:
+        x1 = 189
+        x2 = 272
+        y1 = 1016
+        y2 = 1066
+    class B:
+        x1 = 300
+        x2 = 375
+        y1 = 945
+        y2 = 1007
+    class C:
+        x1 = 330
+        x2 = 360
+        y1 = 895
+        y2 = 930
+    class D:
+        x1 = 440
+        x2 = 485
+        y1 = 820
+        y2 = 860
+    class E:
+        x1 = 228
+        x2 = 290
+        y1 = 808
+        y2 = 735
+    class F:
+        x1 = 85
+        x2 = 122
+        y1 = 685
+        y2 = 650
+    class G:
+        x1 = 420
+        x2 = 485
+        y1 = 700
+        y2 = 645
+    class H:
+        x1 = 450
+        y1 = 450
+        x2 = 490
+        y2 = 382
+    class I:
+        x1 = 430
+        y1 = 370
+        x2 = 545
+        y2 = 260
+    class J:
+        x1 = 550
+        y1 = 395
+        x2 = 836
+        y2 = 114
 

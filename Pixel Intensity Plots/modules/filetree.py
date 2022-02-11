@@ -8,7 +8,7 @@ path = ''
 with open('./fits.json', 'r+') as j:
     data = json.load(j)
     path = data['path']
-    print(path)
+    # print(path)
 paths = ['ForcastOne/', 'ForcastTwo/', "sgrb/"]
 subs = ['convolved/', 'shifted', 'success', 'check']
 
