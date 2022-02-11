@@ -1,6 +1,3 @@
-from math import floor
-from random import gauss
-import numpy as np
 
 from astropy.io import fits
 from astropy.convolution import Gaussian2DKernel, convolve, interpolate_replace_nans, convolve_fft
