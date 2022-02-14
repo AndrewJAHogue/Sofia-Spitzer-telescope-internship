@@ -84,26 +84,26 @@ file = parent + 'sgrb/'
 # ConvolveShift(sofia, spit, path, x1, y1, 0.000, 0.0, column_limits, row_limits)
 
 # Star G
-path = file + 'G/'
-ft.FolderCheck('sgrb/G', True)
-x1 = file1.G.x1
-x2 = file1.G.x2
-y1 = file1.G.y1
-y2 = file1.G.y2
-column_limits = [y1 - 25, y2, 0, None] ## columnlimits = [xmin, xmax, ymin, ymax]
-row_limits = [x1 - 25, x2, None, None] ## rowlimits = [xmin, xmax, ymin, ymax]
-ConvolveShift(sofia, spit, path, x1, y1, 0.000, 0.0, column_limits, row_limits)
+# path = file + 'G/'
+# ft.FolderCheck('sgrb/G', True)
+# x1 = file1.G.x1 
+# x2 = file1.G.x2
+# y1 = file1.G.y1
+# y2 = file1.G.y2
+# column_limits = [y1 - 50, y2 + 25, 0, None] ## columnlimits = [xmin, xmax, ymin, ymax]
+# row_limits = [x1 - 25, x2, None, None] ## rowlimits = [xmin, xmax, ymin, ymax]
+# ConvolveShift(sofia, spit, path, x1, y1, 0.05, 0.005, column_limits, row_limits)
 
-# # Star H
-# path = file + 'I/'
-# ft.FolderCheck('sgrb/I', True)
-# x1 = file1.I.x1
-# x2 = file1.I.x2
-# y1 = file1.I.y1
-# y2 = file1.I.y2
-# column_limits = [y1, y2, 0, None] ## columnlimits = [xmin, xmax, ymin, ymax]
-# row_limits = [x1, x2, None, None] ## rowlimits = [xmin, xmax, ymin, ymax]
-# ConvolveShift(sofia, spit, path, x1, y1, 0.000, 0.01, column_limits, row_limits)
+# Star H
+# path = file + 'H/'
+# ft.FolderCheck('sgrb/H', True)
+# x1 = file1.H.x1
+# x2 = file1.H.x2
+# y1 = file1.H.y1
+# y2 = file1.H.y2
+# column_limits = [360, 480, 0, .06] ## columnlimits = [xmin, xmax, ymin, ymax]
+# row_limits = [450, 500, None, None] ## rowlimits = [xmin, xmax, ymin, ymax]
+# ConvolveShift(sofia, spit, path, x1, y1, 0.01, -0.01, column_limits, row_limits)
 
 # # Star I
 # path = file + 'I/'
@@ -115,4 +115,17 @@ ConvolveShift(sofia, spit, path, x1, y1, 0.000, 0.0, column_limits, row_limits)
 # column_limits = [y1, y2, 0, None] ## columnlimits = [xmin, xmax, ymin, ymax]
 # row_limits = [x1, x2, None, None] ## rowlimits = [xmin, xmax, ymin, ymax]
 # ConvolveShift(sofia, spit, path, x1, y1, 0.000, 0.01, column_limits, row_limits)
+
+# Star J
+path = file + 'J/'
+ft.FolderCheck('sgrb/J', True)
+x1 = file1.J.x1
+x2 = file1.J.x2
+y1 = file1.J.y1
+y2 = file1.J.y2
+sigma_offset = 0.01
+shift = 0.015
+column_limits = [100, 500, 0, .05] ## columnlimits = [xmin, xmax, ymin, ymax]
+row_limits = [x1, x2, 0, .05] ## rowlimits = [xmin, xmax, ymin, ymax]
+# ConvolveShift(sofia, spit, path, x1, y1, 0.01, 0.015)
 

@@ -123,7 +123,7 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
         plot_index += 1
         if plot_index > 2:
             plot_index = 2
-        print(f'plot_index is => {plot_index}')
+        # print(f'plot_index is => {plot_index}')
         if isinstance(file, str):
             data = fits.open(file)[0].data
         file = file[file.find('fits/') + 5:] #test[test.find('fits/') + 5:]
@@ -165,5 +165,3 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
             plt.legend()
     plt.show()
 
-
-# def main(data, xvalue, yvalue, colxmin, colxmax, rowmin, rowmax):

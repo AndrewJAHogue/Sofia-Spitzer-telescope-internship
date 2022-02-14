@@ -6,8 +6,6 @@ class isoOne:
     masked = path + "/Masked_zeros_Spitzer24_IsoFields + Forcast25_1.fits"
     sofia = path + "/Forcast25_isoField1.fits"
     spitzer = path + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
-    # [starx, stary, xmax, ymax]
-    # A = [270, 385, 290, 430]
     class A:
         x1 = 270
         x2 = 290
@@ -92,9 +90,9 @@ class sgrb:
         y1 = 673
         y2 = 700
     class H:
-        x1 = 450
+        x1 = 475
         x2 = 490
-        y1 = 382
+        y1 = 420
         y2 = 450
     class I:
         x1 = 430
@@ -102,8 +100,8 @@ class sgrb:
         y1 = 260
         y2 = 370
     class J:
-        x1 = 550
+        x1 = 700
         x2 = 836
-        y1 = 114
+        y1 = 330
         y2 = 395
 
