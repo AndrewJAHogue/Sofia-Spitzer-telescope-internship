@@ -54,7 +54,7 @@ def NoiseMask(sofia_noise_level, input_files):
         # bad = spit_data > 0.0147
         # spit_noise_line = np.where(spit_data > 0.0147)
         # masks = np.append(masks, bad)
-        copy[sofia_mask] = np.nan
+        copy[~sofia_mask] = np.nan
 
         bad = spit_data < 0
         copy[bad] = np.nan
@@ -108,7 +108,7 @@ def Combine(inputs_sofia, inputs_spit):
         spit_hdu = fits.open(S)[0]
         spit_data = spit_hdu.data
 
-        new = for_data + spit_data 
+        # new = for_data + spit_data 
         new = np.nansum([for_data, spit_data], axis=0) 
         i += 1
         if i == 3:
