@@ -31,10 +31,10 @@ def NoiseMask(noise_level):
         print(f'File written at {new}')
         fits.writeto(new, copy, hdu.header, overwrite=True)
         files = np.append(files, new)
-        # import matplotlib.pyplot as plt
-        # plt.plot(copy, label="masked")
-        # plt.plot(spit_data, label="original")
-        # plt.show()
+        import matplotlib.pyplot as plt
+        plt.plot(copy, label="masked")
+        plt.plot(spit_data, label="original")
+        plt.show()
 
 
 NoiseMask(0.0147)

@@ -9,9 +9,11 @@ from filetree import FitsFolder
 x = st.isoOne.A.x1
 y = st.isoOne.A.y1
 parent = FitsFolder()
-combined = parent + 'Combined Maps/1.fits'
+combined = parent + 'Combined Maps/1_spit_mask.fits'
+combined2 = parent + 'Combined Maps/1.fits'
+combined3 = parent + 'Combined Maps/1_sofia_mask.fits'
 comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/one/8.5_3036.fits'
-files = [comparison, combined]
+files = [comparison, combined, combined3]
 
 # x = st.isoTwo.A.x1
 # y = st.isoTwo.A.y1
@@ -30,3 +32,4 @@ MultiLinePlot(x, y, files, legend=True)
 # sofia_mask = sofia[mask]
 # ...
 # ...
+# np.nanmean([spitzmask, sofiamask], axis=0)
