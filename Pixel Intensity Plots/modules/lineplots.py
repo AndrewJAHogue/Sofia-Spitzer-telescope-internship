@@ -29,17 +29,6 @@ def GetNthColumn(file, xvalue, **kwargs):
         # return np.array(yvalues)
 
 def GetNthRow(file, yvalue, **kwargs):
-    # xvalues = np.array([])
-    # xvalues = file[yvalue]
-    # xvalues = xvalues[xvalues > min]
-    # # fake data, just indeces, basically; example had 'r' but I don't know what that is in this context
-    # if fake:
-    #     ydata = np.array(range(len(xvalues)))
-    #     return np.array([ydata, xvalues])
-    # else:
-    #     return np.array(xvalues)
-
-    #
     xmin = kwargs.get('xmin', None)
     xmax = kwargs.get('xmax', None)
 
@@ -55,13 +44,7 @@ def GetNthRow(file, yvalue, **kwargs):
     if min is not None and max is not None:
         xvalues = xvalues[xmin:xmax]
         ydata = ydata[xmin:xmax]
-    # fake x data
-    # if fake:
     return np.array([ydata, xvalues])
-    # else:
-        # return np.array(yvalues)
-
-
 
 def SingleLinePlot(filepath, xvalue, yvalue, columnmin=0.0, rowmin=0.0):
     data = fits.open(filepath)[0].data
@@ -72,7 +55,6 @@ def SingleLinePlot(filepath, xvalue, yvalue, columnmin=0.0, rowmin=0.0):
     plt.xlabel('Y Index')
     plt.ylabel('Pixel Value')
     plt.plot(column[0],column[1])
-    # print(column[1][column[1] > 0.4])
 
     row = GetNthRow(data, yvalue)
     rowLineplot = plt.subplot(1,2,2)
@@ -85,21 +67,13 @@ def SingleLinePlot(filepath, xvalue, yvalue, columnmin=0.0, rowmin=0.0):
     plt.show()
 
 def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None], rowlimits=[None,None,None,None], **kwargs):
-    # colxmin = kwargs.get('colxmin', None) ## limit domain of column plot
     colxmin = columnlimits[0]
-    # colxmax = kwargs.get('colxmax', None)
     colxmax = columnlimits[1]
-    # colymin = kwargs.get('colymin', None) ## limit range of column plot
     colymin = columnlimits[2]
-    # colymax = kwargs.get('colymax', None)
     colymax = columnlimits[3]
-    # rowxmin = kwargs.get('rowxmin', None) ## limit domain of row plot
     rowxmin = rowlimits[0]
-    # rowxmax = kwargs.get('rowxmax', None)
     rowxmax = rowlimits[1]
-    # rowymin = kwargs.get('rowymin', None) ## limit range of row plot
     rowymin = rowlimits[2]
-    # rowymax = kwargs.get('rowymax', None)
     rowymax = rowlimits[3]
 
     x2 = kwargs.get('x2', None)
@@ -112,8 +86,6 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
     for arg in kwargs:
         if 'file' in str(arg):
             files = np.append(files, kwargs.get(arg, None))
-    # grid = len(files)
-    # grid /= 4
     grid = 1
     print(f'grid is => {grid}')
 
