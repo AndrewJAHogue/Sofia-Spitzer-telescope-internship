@@ -9,9 +9,9 @@ parent = FitsFolder()
 
 x = st.sgrb.A.x1
 y = st.sgrb.A.y1
-# combined = parent + 'Combined Maps/sgrb.fits'
-combined2 = parent + 'Combined Maps/sgrb_spitmask.fits'
-combined3 = parent + 'Combined Maps/sgrb_sofiamask.fits'
+combined = parent + 'Combined Maps/sgrb.fits'
+combined2 = parent + 'Combined Maps/sgrb_tmp.fits'
+combined3 = parent + 'Combined Maps/sgrb_sofiamask_nansum.fits'
 comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/sgrb/15.0_3036.fits'
 files = [comparison, combined3, combined2] 
 
@@ -25,7 +25,7 @@ files = [comparison, combined3, combined2]
 
 # x = st.isoOne.A.x1
 # y = st.isoOne.A.y1
-# combined = parent + 'Combined Maps/isoOne.fits'
+# combined = parent + 'Combined Maps/isoOne_tmp.fits'
 # comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/one/8.5_3036.fits'
 # files = [comparison, combined]
 

@@ -54,8 +54,8 @@ def NoiseMask(noise_level, sofia, spitzer):
     # --------------------------------------
 
     # data below 0 is bad
-    bad = spit_data < 0
-    copy[bad] = np.nan
+    # bad = spit_data < 0
+    # copy[bad] = np.nan
     
 
     name_dot = spitzer.find('.fits')
@@ -73,7 +73,7 @@ def Combine(sofia, spit, filename):
 
     spit_hdu = fits.open(spit)[0]
     spit_data = spit_hdu.data
-
+    
     new = np.nanmean([for_data, spit_data], axis=0) 
     new_path = path + 'Combined Maps/' + filename + '.fits'
     fits.writeto(new_path, new, for_hdu.header, overwrite=True)
@@ -102,12 +102,13 @@ sofias = np.sort(sofias)
 
 
 # ------------CALCULATED NOISE LEVEL----------------------------------
-noise_level = 0.0147
+n_level = 0.016
+# noise_level = 0.0147
 # --------------------------------------------------------------------
 
 # sofia = sofias[0]
 # spitzer = st.isoOne.spitzer
-# filename = 'isoOne'
+# filename = 'isoOne_tmp'
 # NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
 # sofia = sofias[1]
@@ -117,6 +118,5 @@ noise_level = 0.0147
 
 sofia = sofias[2]
 spitzer = st.sgrb.spitzer
-filename = 'sgrb_sofiamask'
-
-NoiseAndCombine(noise_level, sofia, spitzer, filename)
+filename = 'sgrb_tmp'
+NoiseAndCombine(n_level, sofia, spitzer, filename)
