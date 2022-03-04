@@ -23,7 +23,7 @@ def NoiseMask(noise_level, sofia, spitzer):
     # hdu = fits.open(spitzer)[0]
     # spit_data = hdu.data
 
-    # spit_mask = spit_data > 0.147
+    # spit_mask = spit_data > noise_level
     # copy[~spit_mask] = np.nan 
     # ---------------------------------------------
 
@@ -105,18 +105,18 @@ sofias = np.sort(sofias)
 noise_level = 0.0147
 # --------------------------------------------------------------------
 
-sofia = sofias[0]
-spitzer = st.isoOne.spitzer
-filename = 'isoOne'
-NoiseAndCombine(noise_level, sofia, spitzer, filename)
+# sofia = sofias[0]
+# spitzer = st.isoOne.spitzer
+# filename = 'isoOne'
+# NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
 # sofia = sofias[1]
 # spitzer = st.isoTwo.spitzer
 # filename = 'isoTwo'
 # NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
-# sofia = sofias[2]
-# spitzer = st.sgrb.spitzer
-# filename = 'sgrb'
+sofia = sofias[2]
+spitzer = st.sgrb.spitzer
+filename = 'sgrb_sofiamask'
 
-# NoiseAndCombine(noise_level, sofia, spitzer, filename)
+NoiseAndCombine(noise_level, sofia, spitzer, filename)
