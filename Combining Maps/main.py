@@ -9,17 +9,19 @@ from filetree import FitsFolder
 x = st.isoOne.A.x1
 y = st.isoOne.A.y1
 parent = FitsFolder()
-combined = parent + 'Combined Maps/2_spit_mask.fits'
-combined2 = parent + 'Combined Maps/2.fits'
-combined3 = parent + 'Combined Maps/2_sofia_mask.fits'
-comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/two/12.0_3031.fits'
-files = [comparison, combined3]
+# combined = parent + 'Combined Maps/sgrb.fits'
+# comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/sgrb/15.0_3036.fits'
+# files = [comparison, combined]
 
-# combined = parent + 'Combined Maps/1_spit_mask.fits'
-# combined2 = parent + 'Combined Maps/1.fits'
-# combined3 = parent + 'Combined Maps/1_sofia_mask.fits'
-# comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/one/8.5_3036.fits'
-# files = [comparison, combined, combined3]
+# combined = parent + 'Combined Maps/isoTwo.fits'
+# combined2 = parent + 'Combined Maps/isoTwo_spitmask.fits'
+# combined3 = parent + 'Combined Maps/isoTwo_sofiamask.fits'
+# comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/two/12.0_3031.fits'
+# files = [comparison, ]
+
+combined = parent + 'Combined Maps/isoOne.fits'
+comparison = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/one/8.5_3036.fits'
+files = [comparison, combined]
 
 
 MultiLinePlot(x, y, files, legend=True)

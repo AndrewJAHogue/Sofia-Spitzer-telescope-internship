@@ -8,69 +8,63 @@ from astropy.io import fits
 import lineplots as plt
 import filetree as ft
 import stars as st
-# 'stars' is essentially a list of strings to append to the filename (i.e. ['one', 'two', 'sgrb'])
 def NoiseMask(noise_level, sofia, spitzer):
-    masks = []
     # ---------SOFIA------------------------------------------------------------------------------------------------
-    path = ft.FitsFolder()
-    # -------create mask from spitzer data---------
-    # spits = [ st.isoOne.spitzer, st.isoTwo.spitzer, st.sgrb.spitzer ]
-    # hdu = fits.open(spits[s])[0]
-    # spit_data = hdu.data
-
-    # spit_mask = spit_data > 0.147
-    # ---------------------------------------------
     hdu = fits.open(sofia)[0]
     f_data = hdu.data
 
     copy = f_data.copy()
+    # ---------Mask using noise level--------------------------
     bad = f_data < noise_level
-    # copy[~spit_mask] = np.nan 
     copy[bad] = np.nan 
+    # -----------------------------------
+
+    # -------create mask from spitzer data---------
+    # hdu = fits.open(spitzer)[0]
+    # spit_data = hdu.data
+
+    # spit_mask = spit_data > 0.147
+    # copy[~spit_mask] = np.nan 
+    # ---------------------------------------------
 
     name_dot = sofia.find('.fits')
-    name_slash = sofia.find('//')
-
-    new = path + '/noise_masked_' + sofia[name_slash:name_dot] + '.fits'
-    fits.writeto(new, copy, hdu.header, overwrite=True)
+    name_slash = sofia.rfind('/') + 1
+    
+    path = ft.FitsFolder()
+    new_sofia = path + '/noise_masked_' + sofia[name_slash:name_dot] + '.fits'
+    fits.writeto(new_sofia, copy, hdu.header, overwrite=True)
+    print(f'File written at {new_sofia}')
 
     # ---------------SPITZER-----------------------------------------------------------------
-    # -----------MASKS from sofia data---------------------------
-    hdu = fits.open(sofia)[0]
-    sofia_data = hdu.data
-    sofia_mask = sofia_data < 0.0147
-    # --------------------------------------
 
     hdu = fits.open(spitzer)[0]
     spit_data = hdu.data
 
     copy = spit_data.copy()
     # ---mask from spit data-------
-    # bad = spit_data > 0.0147
-    # ------------------------------
+    # bad = spit_data > noise_level
     # copy[bad] = np.nan
+    # ------------------------------
+
+    # -----------MASK from sofia data---------------------------
+    hdu = fits.open(sofia)[0]
+    sofia_data = hdu.data
+    sofia_mask = sofia_data < noise_level
     copy[~sofia_mask] = np.nan
+    # --------------------------------------
+
+    # data below 0 is bad
     bad = spit_data < 0
     copy[bad] = np.nan
     
 
     name_dot = spitzer.find('.fits')
-    name_slash = spitzer.find('//') + 2
-    
-    new = path + '/masked spitzers/noise_masked_' + spitzer[name_slash:name_dot] + '.fits'
-    print(f'File written at {new}')
-    fits.writeto(new, copy, hdu.header, overwrite=True)
+    name_slash = sofia.rfind('/') - 1
 
-    
-   
-
-# ------------CALCULATED NOISE LEVEL----------------------------------
-
-noise_level = 0.0147
-
-# -----------------------------------------------------------------
-
-
+    new_spit = path + '/masked spitzers/noise_masked_' + spitzer[name_slash:name_dot] + '.fits'
+    print(f'File written at {new_spit}')
+    fits.writeto(new_spit, copy, hdu.header, overwrite=True)
+    return new_spit, new_sofia
 
 def Combine(sofia, spit, filename):
     path = ft.FitsFolder()
@@ -80,16 +74,17 @@ def Combine(sofia, spit, filename):
     spit_hdu = fits.open(spit)[0]
     spit_data = spit_hdu.data
 
-    new = np.nansum([for_data, spit_data], axis=0) 
+    new = np.nanmean([for_data, spit_data], axis=0) 
     new_path = path + 'Combined Maps/' + filename + '.fits'
     fits.writeto(new_path, new, for_hdu.header, overwrite=True)
+    print(f'File written at {new_path}')
     
 # --------------------------------------------------------------------------------------------------------
   
 
 def NoiseAndCombine(noise_level, sofia, spitzer, filename):
-    NoiseMask(noise_level, sofia, spitzer)
-    Combine(sofia, spitzer, filename)
+    new_spit, new_sofia = NoiseMask(noise_level, sofia, spitzer)
+    Combine(new_sofia, new_spit, filename)
 
 # ----------Files from sofia I want to noise-mask----------
 hankinsfolder = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/'
@@ -106,8 +101,22 @@ for key in f:
 sofias = np.sort(sofias)
 
 
+# ------------CALCULATED NOISE LEVEL----------------------------------
+noise_level = 0.0147
+# --------------------------------------------------------------------
+
 sofia = sofias[0]
 spitzer = st.isoOne.spitzer
 filename = 'isoOne'
-
 NoiseAndCombine(noise_level, sofia, spitzer, filename)
+
+# sofia = sofias[1]
+# spitzer = st.isoTwo.spitzer
+# filename = 'isoTwo'
+# NoiseAndCombine(noise_level, sofia, spitzer, filename)
+
+# sofia = sofias[2]
+# spitzer = st.sgrb.spitzer
+# filename = 'sgrb'
+
+# NoiseAndCombine(noise_level, sofia, spitzer, filename)
