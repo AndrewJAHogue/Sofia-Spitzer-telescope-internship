@@ -65,6 +65,7 @@ def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, Non
         fits.writeto(p, astropy_conv, hdu.header, overwrite=True)
         astropy_conv += shift
         fits.writeto(path_shifted, astropy_conv, hdu.header, overwrite=True)
+        print(f'File written to {path_shifted}')
 
         files = np.append(files, p)
         files = np.append(files, path_shifted)

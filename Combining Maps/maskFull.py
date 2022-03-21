@@ -59,11 +59,9 @@ def NoiseMask(noise_level, sofia, spitzer):
     
 
     name_dot = spitzer.find('.fits')
-    name_slash = spitzer.rfind('/') + 1
-    path = ft.FitsFolder()
-    new_spit = path
-    ft.FolderCheck(new_spit, True)
-    new_spit += 'noise_masked_' + spitzer[name_slash:name_dot] + '.fits'
+    name_slash = sofia.rfind('/') - 1
+
+    new_spit = path + '/masked spitzers/noise_masked_' + spitzer[name_slash:name_dot] + '.fits'
     print(f'File written at {new_spit}')
     fits.writeto(new_spit, copy, hdu.header, overwrite=True)
     return new_spit, new_sofia
@@ -118,19 +116,11 @@ n_level = 0.016
 # filename = 'isoTwo'
 # NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
-# sofia = sofias[2]
-# spitzer = st.sgrb.spitzer
-# filename = 'sgrb_tmp'
-# NoiseAndCombine(n_level, sofia, spitzer, filename)
-
-# final, full map
 parent = ft.FitsFolder()
-sofia = parent + 'Combined Maps/Full Maps/convolved/'
-# sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
-f = '2026.fits'
-sofia += f
+sofia = parent + 'Full Maps/'
+sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
 
 spit = parent + 'Full Maps/'
 spit += 'Spitzer_GCmosaic_24um_onFORCASTheader_JyPix.fits'
-filename = 'full' + '_' + f
+filename = 'full'
 NoiseAndCombine(n_level, sofia, spit, filename)
