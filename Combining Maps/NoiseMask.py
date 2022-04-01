@@ -8,15 +8,16 @@ from astropy.io import fits
 import lineplots as plt
 import filetree as ft
 import stars as st
-def NoiseMask(noise_level, sofia, spitzer):
+def NoiseAndCombine(noise_level, sofia, spitzer, filename):
     # ---------SOFIA------------------------------------------------------------------------------------------------
     hdu = fits.open(sofia)[0]
     f_data = hdu.data
+    for_header = hdu.header
 
-    copy = f_data.copy()
+    sofia_copy = f_data.copy()
     # ---------Mask using noise level--------------------------
     bad = f_data < noise_level
-    copy[bad] = np.nan 
+    sofia_copy[bad] = np.nan 
     # -----------------------------------
 
     # -------create mask from spitzer data---------
@@ -24,69 +25,37 @@ def NoiseMask(noise_level, sofia, spitzer):
     # spit_data = hdu.data
 
     # spit_mask = spit_data > noise_level
-    # copy[~spit_mask] = np.nan 
+    # sofia_copy[~spit_mask] = np.nan 
     # ---------------------------------------------
-
-    name_dot = sofia.find('.fits')
-    name_slash = sofia.rfind('/') + 1
     
-    path = ft.FitsFolder()
-    new_sofia = path + '/noise_masked_' + sofia[name_slash:name_dot] + '.fits'
-    fits.writeto(new_sofia, copy, hdu.header, overwrite=True)
-    print(f'File written at {new_sofia}')
-
     # ---------------SPITZER-----------------------------------------------------------------
 
     hdu = fits.open(spitzer)[0]
     spit_data = hdu.data
 
-    copy = spit_data.copy()
+    spit_copy = spit_data.copy()
     # ---mask from spit data-------
     # bad = spit_data > noise_level
-    # copy[bad] = np.nan
+    # spit_copy[bad] = np.nan
     # ------------------------------
 
     # -----------MASK from sofia data---------------------------
     hdu = fits.open(sofia)[0]
     sofia_data = hdu.data
     sofia_mask = sofia_data < noise_level
-    copy[~sofia_mask] = np.nan
+    spit_copy[~sofia_mask] = np.nan
     # --------------------------------------
 
     # data below 0 is bad
-    # bad = spit_data < 0
-    # copy[bad] = np.nan
+    bad = spit_data < 0
+    spit_copy[bad] = np.nan
     
-
-    name_dot = spitzer.find('.fits')
-    name_slash = spitzer.rfind('/') + 1
     path = ft.FitsFolder()
-    new_spit = path
-    ft.FolderCheck(new_spit, True)
-    new_spit += 'noise_masked_' + spitzer[name_slash:name_dot] + '.fits'
-    print(f'File written at {new_spit}')
-    fits.writeto(new_spit, copy, hdu.header, overwrite=True)
-    return new_spit, new_sofia
-
-def Combine(sofia, spit, filename):
-    path = ft.FitsFolder()
-    for_hdu = fits.open(sofia)[0]
-    for_data = for_hdu.data
-
-    spit_hdu = fits.open(spit)[0]
-    spit_data = spit_hdu.data
-    
-    new = np.nanmean([for_data, spit_data], axis=0) 
+    new = np.nanmean([spit_copy, sofia_copy], axis=0) 
     new_path = path + 'Combined Maps/' + filename + '.fits'
-    fits.writeto(new_path, new, for_hdu.header, overwrite=True)
+    fits.writeto(new_path, new, for_header, overwrite=True)
     print(f'File written at {new_path}')
     
-# --------------------------------------------------------------------------------------------------------
-  
-
-def NoiseAndCombine(noise_level, sofia, spitzer, filename):
-    new_spit, new_sofia = NoiseMask(noise_level, sofia, spitzer)
-    Combine(new_sofia, new_spit, filename)
 
 # ----------Files from sofia I want to noise-mask----------
 hankinsfolder = '/media/al-chromebook/USB20FD/Python/Research/ToGiveHankings/'
@@ -108,15 +77,15 @@ noise_level = 0.016
 # noise_level = 0.0147
 # --------------------------------------------------------------------
 
-sofia = sofias[0]
-spitzer = st.isoOne.spitzer
-filename = 'isoOne'
-NoiseAndCombine(noise_level, sofia, spitzer, filename)
+# sofia = sofias[0]
+# spitzer = st.isoOne.spitzer
+# filename = 'isoOne'
+# NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
-sofia = sofias[1]
-spitzer = st.isoTwo.spitzer
-filename = 'isoTwo'
-NoiseAndCombine(noise_level, sofia, spitzer, filename)
+# sofia = sofias[1]
+# spitzer = st.isoTwo.spitzer
+# filename = 'isoTwo'
+# NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
 # sofia = sofias[2]
 # spitzer = st.sgrb.spitzer
@@ -132,5 +101,5 @@ sofia += f
 
 spit = parent + 'Full Maps/'
 spit += 'Spitzer_GCmosaic_24um_onFORCASTheader_JyPix.fits'
-filename = 'full' + '_' + f
-NoiseAndCombine(n_level, sofia, spit, filename)
+filename = 'full' + '_' + str(noise_level) + '_' + f 
+NoiseAndCombine(noise_level, sofia, spit, filename)
