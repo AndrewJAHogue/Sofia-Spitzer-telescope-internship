@@ -54,7 +54,7 @@ def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, Non
         path_shifted = f"{path}/shifted{filename}/{shift * 1000}_{floor(s * 1000)}.fits"
         
         kernel = Gaussian2DKernel(s)
-        astropy_conv = convolve_fft(img, kernel)
+        astropy_conv = convolve_fft(img, kernel, allow_huge=True)
 
         fits.writeto(p, astropy_conv, hdu.header, overwrite=True)
         astropy_conv += shift

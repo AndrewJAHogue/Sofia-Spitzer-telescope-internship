@@ -25,5 +25,5 @@ sigma_offset = 0.01
 shift = 0.0085
 # column_limits = [y1 - 25, y2, 0, 0.05] ## columnlimits = [xmin, xmax, ymin, ymax]
 # row_limits = [x1 - 25, x2, None, 0.05] ## rowlimits = [xmin, xmax, ymin, ymax]
-ConvolveShift(sofia, spit, path, x1, y1, -1, 0.00)
+ConvolveShift(sofia, spit, path, x1, y1, 0, 0.00)
 # ConvolveShift(sofia, spit, path, x1, y1, 0.01, 0.0085, column_limits, row_limits)

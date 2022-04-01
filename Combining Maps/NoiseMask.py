@@ -27,7 +27,7 @@ def NoiseAndCombine(noise_level, sofia, spitzer, filename):
     # spit_mask = spit_data > noise_level
     # sofia_copy[~spit_mask] = np.nan 
     # ---------------------------------------------
-    
+
     # ---------------SPITZER-----------------------------------------------------------------
 
     hdu = fits.open(spitzer)[0]
@@ -96,7 +96,7 @@ noise_level = 0.016
 parent = ft.FitsFolder()
 sofia = parent + 'Combined Maps/Full Maps/convolved/'
 # sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
-f = '2026.fits'
+f = '2026'
 sofia += f
 
 spit = parent + 'Full Maps/'
