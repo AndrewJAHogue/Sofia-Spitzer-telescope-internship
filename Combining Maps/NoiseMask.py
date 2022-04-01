@@ -102,21 +102,21 @@ sofias = np.sort(sofias)
 
 
 # ------------CALCULATED NOISE LEVEL----------------------------------
-n_level = 0.016
+noise_level = 0.016
 # noise_level = 0.0147
 # --------------------------------------------------------------------
 
-# sofia = sofias[0]
-# spitzer = st.isoOne.spitzer
-# filename = 'isoOne_tmp'
-# NoiseAndCombine(noise_level, sofia, spitzer, filename)
+sofia = sofias[0]
+spitzer = st.isoOne.spitzer
+filename = 'isoOne'
+NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
-# sofia = sofias[1]
-# spitzer = st.isoTwo.spitzer
-# filename = 'isoTwo'
-# NoiseAndCombine(noise_level, sofia, spitzer, filename)
+sofia = sofias[1]
+spitzer = st.isoTwo.spitzer
+filename = 'isoTwo'
+NoiseAndCombine(noise_level, sofia, spitzer, filename)
 
 sofia = sofias[2]
 spitzer = st.sgrb.spitzer
-filename = 'sgrb_tmp'
-NoiseAndCombine(n_level, sofia, spitzer, filename)
+filename = 'sgrb'
+NoiseAndCombine(noise_level, sofia, spitzer, filename)

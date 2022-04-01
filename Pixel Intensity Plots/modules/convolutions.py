@@ -14,24 +14,15 @@ def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, Non
     x2 = keywargs.get('x2', None)
     y2 = keywargs.get('y2', None)
     
-    # sofia = fitsfolder + "/Forcast25_isoField1.fits"
-    # spit = fitsfolder + "/Reprojected Spitzer24 IsoFields @ Forcast25 isoField1.fits"
     print(f'x: {x} \ny: {y}')
     hdu = fits.open(sofia)[0]
 
-
-    # scale the file and crop
-    # img = hdu.data[x:2, y:y2]
     img = hdu.data
     img[img > 1] = np.nan
     img[img < 0] = np.nan
 
     files = np.array([])
     files = [sofia, spit]
-
-    # from astropy import units as u
-    # a = 2.4 * u.arcsec
-    # print(a.to(pix))
 
     from lineplots import MultiLinePlot, SingleLinePlot
 
@@ -42,8 +33,11 @@ def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, Non
     sigma += sigmashift
     print(f'sigma => {sigma}')
     sigmas = [sigma]
-    ft.FolderCheck(path[path.find('fits/') + 5:] + 'convolved', True)
-    ft.FolderCheck(path[path.find('fits/') + 5:] + 'shifted', True)
+    name_dot = sofia.find('.fits')
+    name_slash = sofia.rfind('/') - 1
+    filename = sofia[name_slash:name_dot]
+    ft.FolderCheck(path[path.find('fits/') + 5:] + 'convolved' + filename, True)
+    ft.FolderCheck(path[path.find('fits/') + 5:] + 'shifted' + filename, True)
 
     # shift = 0.008 ## shift data up slightly
 
@@ -56,8 +50,8 @@ def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, collims=[None, Non
         print(f'sigmaup => {sigmaup}')
         print(f'sigmadown => {sigmadown}')
     for s in sigmas:
-        p = f"{path}/convolved/{floor(s * 1000)}.fits"
-        path_shifted = f"{path}/shifted/{shift * 1000}_{floor(s * 1000)}.fits"
+        p = f"{path}/convolved{filename}/{floor(s * 1000)}.fits"
+        path_shifted = f"{path}/shifted{filename}/{shift * 1000}_{floor(s * 1000)}.fits"
         
         kernel = Gaussian2DKernel(s)
         astropy_conv = convolve_fft(img, kernel)
