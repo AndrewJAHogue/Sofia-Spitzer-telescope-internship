@@ -56,4 +56,8 @@ if time / 1e6 < 1000:
 elif time / 1e9 < 120:
     time /= 1e9
     time = str(time) + ' s'
+elif ( time / 1e9 ) / 60 < 60:
+    time /= 1e9
+    time /= 60
+    time = str(time) + ' min'
 print(f'Function processed in {time}')
