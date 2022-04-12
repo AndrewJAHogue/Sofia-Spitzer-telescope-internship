@@ -23,12 +23,10 @@ ft.FolderCheck('EdgeMasked/', True)
 fits_hdu = fits.open(sofia)
 f_var = fits_hdu[1].data
 f_exposure = fits_hdu[2].data
-# t_max = 793
-threshold = 85
 # this [:605] limits it to essentially isofield1, for efficiency
-copy = fits_hdu[0].data[:605].copy()
-
-fraction = .5
+copy = fits_hdu[0].data.copy()
+# print(fits_hdu[0].data[:605,2800:].shape)
+fraction = 1.3
 
 for why, y in enumerate(copy):
     t_max = np.nanmedian(f_exposure[f_exposure != 0][why])
@@ -37,11 +35,17 @@ for why, y in enumerate(copy):
         if t_ex < fraction*t_max and np.isnan(t_max) == False or t_ex == 0.0:
             copy[why][ex] = np.nan
 
-filename = new_path + f'{fraction}_isoOne.fits'
+s = 'FullSofia'
+ft.FolderCheck(f'EdgeMasked/{s}/', True)
+new_path += f'{s}/'
+filename = f'{fraction}_{s}.fits'
+print(filename)
+outpath = new_path + filename
+print(outpath)
 
-fits.writeto(filename, copy, fits_hdu[0].header, overwrite=True)
+fits.writeto(outpath, copy, fits_hdu[0].header, overwrite=True)
 
-print(f'File written at {filename}')
+print(f'File written at {outpath}')
 
 
 
