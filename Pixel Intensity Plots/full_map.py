@@ -9,14 +9,16 @@ import stars as st
 import filetree as ft
 file1 = st.isoOne
 parent = ft.FitsFolder()
-sofia = parent + 'Full Maps/'
-sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
+sofia = parent + 'EdgeMasked/FullSofia/'
+sofia += '1.3_FullSofia.fits'
+# sofia = parent + 'Full Maps/'
+# sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
 spit = parent + 'Full Maps/'
 spit += 'Spitzer_GCmosaic_24um_onFORCASTheader_JyPix.fits'
 
 from convolutions import ConvolveShift
 
-path = parent + 'Combined Maps/Full Maps/'
+path = parent + 'Combined Maps/Full Maps/EdgeMasked/'
 x1 = 3130
 x2 = file1.A.x2
 y1 = 406

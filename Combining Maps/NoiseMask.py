@@ -52,7 +52,7 @@ def NoiseAndCombine(noise_level, sofia, spitzer, filename):
     
     path = ft.FitsFolder()
     new = np.nanmean([spit_copy, sofia_copy], axis=0) 
-    new_path = path + 'Combined Maps/' + filename + '.fits'
+    new_path = path + 'Combined Maps/' + filename
     fits.writeto(new_path, new, for_header, overwrite=True)
     print(f'File written at {new_path}')
     
@@ -94,12 +94,12 @@ noise_level = 0.016
 
 # final, full map
 parent = ft.FitsFolder()
-sofia = parent + 'Combined Maps/Full Maps/convolved/'
-# sofia += 'F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MATT_Corrected.fits'
-f = '2026'
+sofia = parent + 'Combined Maps/Full Maps/EdgeMasked/convolveda/1.3_FullSofia/'
+f = '3026.fits'
 sofia += f
 
 spit = parent + 'Full Maps/'
 spit += 'Spitzer_GCmosaic_24um_onFORCASTheader_JyPix.fits'
-filename = 'full' + '_' + str(noise_level) + '_' + f 
+filename = f'Full Maps/EdgeMasked/full_{str(noise_level)}_{f}'
+# filename = 'full' + '_' + str(noise_level) + '_' + f 
 NoiseAndCombine(noise_level, sofia, spit, filename)
