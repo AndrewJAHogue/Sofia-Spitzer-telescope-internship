@@ -17,7 +17,7 @@ from reproject import reproject_interp
 from matplotlib.colors import LogNorm
 array, footprint = reproject_interp(Spitzer24_IsoFields, Forcast25_1.header)
 
-combined = array + Forcast25_1.data
+combined = np.nanmean([array, Forcast25_1.data], axis=0) 
 
 # forcast isofield 1
 ax2 = plt.subplot(2,2,1, projection=WCS(Forcast25_1.header))
@@ -58,7 +58,7 @@ bad = array < 0
 withzeros = np.copy(array)
 withzeros[bad] = 0
 
-combined_zeros = withzeros + Forcast25_1.data
+combined_zeros = np.nanmean( [ withzeros, Forcast25_1.data ], axis=0 )
 # this is the plot of the reprojected spitzer data after sending it through a data mask, turning all <0 => np.nan's
 ax5 = plt.subplot(2,2,4, projection=WCS(Forcast25_1.header))
 ax5.imshow(combined_zeros, origin='lower', norm=LogNorm())
