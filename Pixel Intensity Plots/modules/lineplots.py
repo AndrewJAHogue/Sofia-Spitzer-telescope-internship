@@ -67,6 +67,7 @@ def SingleLinePlot(filepath, xvalue, yvalue, columnmin=0.0, rowmin=0.0):
     plt.show()
 
 def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None], rowlimits=[None,None,None,None], **kwargs):
+    plt.rcParams.update({'font.size': 27})
     colxmin = columnlimits[0]
     colxmax = columnlimits[1]
     colymin = columnlimits[2]
