@@ -17,20 +17,19 @@ sofia = parent + 'Full Maps/F0217_FO_IMA_70030015_FORF253_MOS_0001-0348_final_MA
 spit = parent + 'Full Maps/Spitzer_GCmosaic_24um_onFORCASTheader_JyPix.fits'
 
 
-new_path = parent + 'EdgeMasked/'
-ft.FolderCheck('EdgeMasked/', True)
 
 fits_hdu = fits.open(sofia)
 f_var = fits_hdu[1].data
 f_exposure = fits_hdu[2].data
 # t_max = 793
 threshold = 85
+fraction = 0.55
 copy = fits_hdu[0].data.copy()
-odd_stamps = [
-    copy[2798:3070][0:271].copy(),
-    copy[3656:3719][0:63].copy(),
-    copy[3510:3570][:60].copy()
-]
+# odd_stamps = [
+#     copy[2798:3070][0:271].copy(),
+#     copy[3656:3719][0:63].copy(),
+#     copy[3510:3570][:60].copy()
+# ]
 for why, y in enumerate(copy):
     no_zeros = f_exposure[f_exposure != 0].copy()
     t_max = np.nanmedian(no_zeros[why])
@@ -38,7 +37,7 @@ for why, y in enumerate(copy):
         t_ex = f_exposure[why][ex]
         # print(f'The exposure for x:{ex} and y:{why} is {t_ex} and the max for this row is {t_max}')
         # if why < 3634 and x < 1841 or why > 3814 and x > 1807:
-        if t_ex < 0.55*t_max and np.isnan(t_max) == False or t_ex == 0.0:
+        if t_ex < fraction*t_max and np.isnan(t_max) == False or t_ex == 0.0:
             copy[why][ex] = np.nan
 #             if why < 2803:
 #                 if ex < 2053:
@@ -49,10 +48,12 @@ for why, y in enumerate(copy):
 #             if why > 3200 and why < 3725:
 #                 if ex > 2260:
 #                     copy[why][ex] = np.nan
-copy[2798:3070][0:271] = odd_stamps[0]
-copy[3656:3719][0:63] = odd_stamps[1]
-copy[3510:3570][:60] = odd_stamps[2]
+# copy[2798:3070][0:271] = odd_stamps[0]
+# copy[3656:3719][0:63] = odd_stamps[1]
+# copy[3510:3570][:60] = odd_stamps[2]
 
+new_path = parent + 'EdgeMasked/'
+ft.FolderCheck('EdgeMasked/', True)
 filename = new_path + 'tmp_sofia.fits'
 
 fits.writeto(filename, copy, fits_hdu[0].header, overwrite=True)
