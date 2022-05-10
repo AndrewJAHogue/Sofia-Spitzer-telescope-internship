@@ -54,7 +54,7 @@ for why, y in enumerate(copy):
 
 new_path = parent + 'EdgeMasked/'
 ft.FolderCheck('EdgeMasked/', True)
-filename = new_path + 'tmp_sofia.fits'
+filename = new_path + f'edge-masked'
 
 fits.writeto(filename, copy, fits_hdu[0].header, overwrite=True)
 

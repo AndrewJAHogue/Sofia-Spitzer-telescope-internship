@@ -77,6 +77,7 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
     rowymin = rowlimits[2]
     rowymax = rowlimits[3]
 
+    
     x2 = kwargs.get('x2', None)
     y2 = kwargs.get('y2', None)
 
@@ -93,10 +94,6 @@ def MultiLinePlot(xvalue, yvalue, fileset=[], columnlimits=[None,None,None,None]
     from math import ceil, floor
 
     for plot_index,file in enumerate(files):
-        plot_index += 1
-        if plot_index > 2:
-            plot_index = 2
-        # print(f'plot_index is => {plot_index}')
         if isinstance(file, str):
             data = fits.open(file)[0].data
         file = file[file.find('fits/') + 5:] #test[test.find('fits/') + 5:]
