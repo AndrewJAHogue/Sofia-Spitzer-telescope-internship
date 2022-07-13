@@ -29,8 +29,9 @@ def ConvolveShiftPlot(sofia, spit, path, x, y, sigmashift, shift, collims=[None,
 
     from astropy.stats import gaussian_fwhm_to_sigma
     from math import sqrt
-    fwhm = sqrt((5.9**2)-(2.2**2))
-    sigma = fwhm * 1.302 * gaussian_fwhm_to_sigma ## converts from arcseconds to pixels
+    # fwhm = sqrt((5.9**2)-(2.2**2))
+    # sigma = fwhm * 1.302 * gaussian_fwhm_to_sigma ## converts from arcseconds to pixels
+    sigma = 0
     sigma += sigmashift
     print(f'sigma => {sigma}')
     sigmas = [sigma]
@@ -68,7 +69,7 @@ def ConvolveShiftPlot(sofia, spit, path, x, y, sigmashift, shift, collims=[None,
 
         files = np.append(files, p)
         files = np.append(files, path_shifted)
-    MultiLinePlot(x, y, files, collims, rowlims)
+    MultiLinePlot(x, y, files, collims, rowlims, legend=True)
     
 def ConvolveShift(sofia, spit, path, x, y, sigmashift, shift, **keywargs):
     increment = keywargs.get('increment', 0.0)
