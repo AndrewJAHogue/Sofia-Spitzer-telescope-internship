@@ -4,10 +4,12 @@ from os import makedirs
 import json
 chosenstars = ['B/', 'A/', 'C/']
 path = ''
+computer_path = ''
 # fits folder now kept out of repo; too large to upload; make fits.json with fits path
 with open('./fits.json', 'r+') as j:
     data = json.load(j)
-    path = data['path']
+    path = data['fits path']
+    computer_path = data['computer path']
     # print(path)
 paths = ['ForcastOne/', 'ForcastTwo/', "sgrb/"]
 subs = ['convolved/', 'shifted', 'success', 'check']
@@ -37,4 +39,7 @@ def FolderCheck(subfolder, create=False, verbose=False):
             print(f'path {top + subfolder} => already exists')
 
 def FitsFolder():
-    return path
+    return computer_path + path
+
+def ComputerPath():
+    return computer_path()
